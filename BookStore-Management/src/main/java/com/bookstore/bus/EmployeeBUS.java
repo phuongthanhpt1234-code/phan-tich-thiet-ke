@@ -58,7 +58,6 @@ public class EmployeeBUS {
         Validate.phone(e.getPhoneNumber(), "Số điện thoại");
         Validate.email(e.getEmail());
         Validate.maxLen(e.getAddress(), 100, "Địa chỉ");
-        Validate.maxLen(e.getLevel(), 10, "Cấp bậc");
         if (e.getSalary() != null && (e.getSalary() < 0 || e.getSalary() >= 100_000_000))
             throw new AppException("Lương cơ bản phải từ 0 đến dưới 100.000.000.");
         LocalDate today = LocalDate.now();

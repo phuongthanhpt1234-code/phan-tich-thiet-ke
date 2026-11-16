@@ -1,7 +1,7 @@
 # BookStore-Management – Phần mềm Quản lý Nhà sách
 
 Ứng dụng desktop **Java Swing** theo kiến trúc **3 lớp** (GUI – BUS – DAO – Model), build bằng **Maven**, dữ liệu lưu trên **MySQL/MariaDB** qua JDBC.
-CSDL theo tài liệu `csdl_demo.docx` (29 bảng) + 1 bảng bổ sung `Categories`.
+CSDL chuẩn hóa gồm 12 bảng phục vụ toàn diện hoạt động của nhà sách.
 
 ## Yêu cầu
 JDK 17+, Maven 3.8+, MySQL 8+ hoặc XAMPP (MariaDB 10.4+).
@@ -44,8 +44,6 @@ JDK 17+, Maven 3.8+, MySQL 8+ hoặc XAMPP (MariaDB 10.4+).
 | `int(3)`… viết thành `INT` | MySQL 8 bỏ qua độ rộng hiển thị |
 | Không có điểm tích lũy / giảm giá | Tài liệu không có cột tương ứng |
 
-17 bảng nhân sự khác (TimeKeeping, Salaries, Goals, Tasks, Interviews…) đã được tạo trong CSDL nhưng chưa có màn hình.
-
 ## Định dạng CSV nhập sách
 `Tên sách, ISBN, Tác giả, Thể loại, Nhà xuất bản, Năm xuất bản, Giá, Số lượng` (dòng tiêu đề là tùy chọn).
 
@@ -54,14 +52,14 @@ JDK 17+, Maven 3.8+, MySQL 8+ hoặc XAMPP (MariaDB 10.4+).
 src/main/java/com/bookstore/
 ├── Main.java
 ├── config/MySQLConnect.java
-├── model/  Book, Category, Author, Publisher, Customer, Employee, Position, Department,
+├── model/  Book, Category, Author, Publisher, Customer, Employee, Position,
 │           SalesOrder, OrderItem, Payment, PaymentMethod, SalesReport
 ├── dao/    DaoSupport + BookDAO, CategoryDAO, AuthorDAO, PublisherDAO, CustomerDAO, EmployeeDAO,
-│           PositionDAO, DepartmentDAO, SalesOrderDAO, OrderItemDAO, PaymentDAO, SalesReportDAO
+│           PositionDAO, SalesOrderDAO, OrderItemDAO, PaymentDAO, SalesReportDAO
 ├── bus/    BookBUS, CategoryBUS, AuthorBUS, PublisherBUS, CustomerBUS, EmployeeBUS, PositionBUS,
-│           DepartmentBUS, SalesOrderBUS, SalesReportBUS
+│           SalesOrderBUS, SalesReportBUS
 ├── gui/    LoginFrame, MainFrame, QuanLyBanHangGUI, QuanLySachGUI, QuanLyKhachHangGUI, CatalogTabs,
-│           QuanLyTheLoaiGUI, QuanLyTacGiaGUI, QuanLyNhaXuatBanGUI, QuanLyChucVuGUI, QuanLyPhongBanGUI,
+│           QuanLyTheLoaiGUI, QuanLyTacGiaGUI, QuanLyNhaXuatBanGUI, QuanLyChucVuGUI,
 │           QuanLyNhanVienGUI, ThongKeGUI, CrudPanel, UIUtil, Refreshable
 └── util/   AppException, CsvUtil, PasswordUtil, Validate
 database/bookstore.sql

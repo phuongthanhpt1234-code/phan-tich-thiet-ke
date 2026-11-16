@@ -7,7 +7,7 @@ CREATE DATABASE IF NOT EXISTS bookstore CHARACTER SET utf8mb4 COLLATE utf8mb4_un
 USE bookstore;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS BookInventory_Tasks, Sales_Reports, Payments, Order_Items, Sales_Orders, Customers,
+DROP TABLE IF EXISTS Sales_Reports, Payments, Order_Items, Sales_Orders, Customers,
     Books, Publishers, Authors, Categories, JobOpenings, Applicants, Interviews, Interviewer,
     Trainings_Development, Train, Achievements, Reports, Account, AssignedTo, Tasks, Participants,
     Meeting_Schedule, Goals, SalaryChangeHistory, Salaries, TimeKeeping, Employee, Departments, `Position`;
@@ -289,35 +289,23 @@ CREATE TABLE Sales_Reports (
     FOREIGN KEY (employee_id) REFERENCES Employee(id)
 );
 
-CREATE TABLE BookInventory_Tasks (
-    task_id     INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,
-    check_date  DATE NOT NULL,
-    notes       TEXT,
-    FOREIGN KEY (employee_id) REFERENCES Employee(id)
-);
-
 -- ============================ DỮ LIỆU MẪU ============================
 -- Quyền ADMIN = nhân viên có chức vụ tên "Quản lý"; các chức vụ khác là nhân viên thường.
 INSERT INTO `Position`(id, position_name, description) VALUES
 (1, 'Quản lý', 'Quản lý cửa hàng, toàn quyền hệ thống'),
-(2, 'Nhân viên bán hàng', 'Bán hàng, quản lý sách và khách hàng'),
-(3, 'Thủ kho', 'Kiểm kê và quản lý kho sách');
+(2, 'Nhân viên bán hàng', 'Bán hàng, quản lý sách và khách hàng');
 
-INSERT INTO Departments(id, department_name) VALUES (1, 'Kinh doanh'), (2, 'Kho');
+INSERT INTO Departments(id, department_name) VALUES (1, 'Kinh doanh');
 
 INSERT INTO Employee(id, name, position_id, departments_id, date_of_birth, gender, phone_number, address, email, hire_date, salary, work_type, `level`, isDeleted) VALUES
 (1, 'Nguyễn Quản Lý', 1, 1, '1990-05-20', 'male',   '0901111111', 'TP. Hồ Chí Minh', 'quanly@nhasach.vn',  '2020-01-01', 15000000, 'full-time', 'L3', 0),
-(2, 'Trần Thị Bán Hàng', 2, 1, '1999-08-12', 'female', '0902222222', 'TP. Hồ Chí Minh', 'banhang@nhasach.vn', '2023-03-15', 8000000, 'full-time', 'L1', 0),
-(3, 'Lê Văn Kho', 3, 2, '1996-11-02', 'male',   '0903333333', 'TP. Hồ Chí Minh', 'kho@nhasach.vn',     '2022-07-01', 9000000, 'part-time', 'L2', 0);
+(2, 'Trần Thị Bán Hàng', 2, 1, '1999-08-12', 'female', '0902222222', 'TP. Hồ Chí Minh', 'banhang@nhasach.vn', '2023-03-15', 8000000, 'full-time', 'L1', 0);
 UPDATE Departments SET manager_id = 1 WHERE id = 1;
-UPDATE Departments SET manager_id = 3 WHERE id = 2;
 
--- Tài khoản: admin / admin123 (Quản lý) ; staff / staff123 (Bán hàng) ; kho / kho12345 (Thủ kho)
+-- Tài khoản: admin / admin123 (Quản lý) ; staff / staff123 (Bán hàng)
 INSERT INTO Account(employee_id, username, password) VALUES
 (1, 'admin', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'),
-(2, 'staff', '10176e7b7b24d317acfcf8d2064cfd2f24e154f7b5a96603077d5ef813d6a6b6'),
-(3, 'kho',   '3d7819184aeaf4a2a9283e70e6ff9027d664a322ceb8f4a4054b826268f8f362');
+(2, 'staff', '10176e7b7b24d317acfcf8d2064cfd2f24e154f7b5a96603077d5ef813d6a6b6');
 
 INSERT INTO Categories(category_id, category_name) VALUES
 (1, 'Văn học'), (2, 'Kinh tế'), (3, 'Thiếu nhi'), (4, 'Kỹ năng sống'), (5, 'Công nghệ thông tin'), (6, 'Ngoại ngữ');

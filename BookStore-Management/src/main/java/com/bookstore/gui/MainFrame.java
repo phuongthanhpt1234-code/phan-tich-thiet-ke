@@ -37,7 +37,6 @@ public class MainFrame extends JFrame {
         tabs.addTab("Quản lý sách", new QuanLySachGUI());
         tabs.addTab("Khách hàng", new QuanLyKhachHangGUI());
         tabs.addTab("Danh mục", new CatalogTabs(user));
-        tabs.addTab("Kiểm kê kho", new KiemKeKhoGUI(user));
         if (user.isAdmin()) {   // quyền quản trị: chức vụ "Quản lý"
             tabs.addTab("Nhân viên", new QuanLyNhanVienGUI(user));
             tabs.addTab("Thống kê", new ThongKeGUI(user));

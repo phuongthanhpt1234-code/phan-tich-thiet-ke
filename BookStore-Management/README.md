@@ -19,9 +19,8 @@ JDK 17+, Maven 3.8+, MySQL 8+ hoặc XAMPP (MariaDB 10.4+).
 ## Tài khoản mẫu
 | Chức vụ | Tên đăng nhập | Mật khẩu | Quyền |
 |---|---|---|---|
-| Quản lý | `admin` | `admin123` | Toàn bộ (thêm tab Nhân viên, Thống kê, Chức vụ, Phòng ban) |
-| Nhân viên bán hàng | `staff` | `staff123` | Bán hàng, Sách, Khách hàng, Danh mục (Thể loại/Tác giả/NXB), Kiểm kê |
-| Thủ kho | `kho` | `kho12345` | Như nhân viên |
+| Quản lý | `admin` | `admin123` | Toàn bộ (thêm tab Nhân viên, Thống kê, Chức vụ) |
+| Nhân viên bán hàng | `staff` | `staff123` | Bán hàng, Sách, Khách hàng, Danh mục (Thể loại/Tác giả/NXB) |
 
 > Bảng `Account` trong tài liệu không có cột `role`, nên **quyền quản trị = nhân viên có chức vụ tên "Quản lý"** (bảng `Position`). Không được xóa/đổi tên chức vụ này.
 
@@ -29,7 +28,7 @@ JDK 17+, Maven 3.8+, MySQL 8+ hoặc XAMPP (MariaDB 10.4+).
 - **Bán hàng (POS)**: chọn sách → giỏ hàng → khách (hoặc vãng lai) → phương thức thanh toán (tiền mặt / thẻ / ví điện tử / chuyển khoản) → hóa đơn xem & lưu `.txt`.
   Thanh toán chạy trong **một giao dịch**: `Sales_Orders` → `Order_Items` → trừ `stock_quantity` → `Payments`; lỗi ở bước nào thì rollback toàn bộ.
 - **Quản lý sách**: CRUD, tìm theo tên/tác giả/ISBN/mã, lọc thể loại, Import/Export CSV (tự tạo tác giả/thể loại/NXB chưa có).
-- **Khách hàng**, **Danh mục** (Thể loại, Tác giả, Nhà xuất bản; admin thêm Chức vụ, Phòng ban), **Kiểm kê kho** (`BookInventory_Tasks`).
+- **Khách hàng**, **Danh mục** (Thể loại, Tác giả, Nhà xuất bản; admin thêm Chức vụ).
 - **Nhân viên** (admin): thêm/sửa nhân viên + tài khoản (`Employee` + `Account`); "Thôi việc" = xóa mềm `isDeleted = 1`, có thể khôi phục.
 - **Thống kê** (admin): doanh thu theo ngày, sách bán chạy, lịch sử đơn (xem hóa đơn, **hủy đơn** → hoàn kho + `refunded`), sách sắp hết, **lưu báo cáo** vào `Sales_Reports`.
 
@@ -56,14 +55,14 @@ src/main/java/com/bookstore/
 ├── Main.java
 ├── config/MySQLConnect.java
 ├── model/  Book, Category, Author, Publisher, Customer, Employee, Position, Department,
-│           SalesOrder, OrderItem, Payment, PaymentMethod, SalesReport, InventoryTask
+│           SalesOrder, OrderItem, Payment, PaymentMethod, SalesReport
 ├── dao/    DaoSupport + BookDAO, CategoryDAO, AuthorDAO, PublisherDAO, CustomerDAO, EmployeeDAO,
-│           PositionDAO, DepartmentDAO, SalesOrderDAO, OrderItemDAO, PaymentDAO, SalesReportDAO, InventoryTaskDAO
+│           PositionDAO, DepartmentDAO, SalesOrderDAO, OrderItemDAO, PaymentDAO, SalesReportDAO
 ├── bus/    BookBUS, CategoryBUS, AuthorBUS, PublisherBUS, CustomerBUS, EmployeeBUS, PositionBUS,
-│           DepartmentBUS, SalesOrderBUS, SalesReportBUS, InventoryTaskBUS
+│           DepartmentBUS, SalesOrderBUS, SalesReportBUS
 ├── gui/    LoginFrame, MainFrame, QuanLyBanHangGUI, QuanLySachGUI, QuanLyKhachHangGUI, CatalogTabs,
 │           QuanLyTheLoaiGUI, QuanLyTacGiaGUI, QuanLyNhaXuatBanGUI, QuanLyChucVuGUI, QuanLyPhongBanGUI,
-│           KiemKeKhoGUI, QuanLyNhanVienGUI, ThongKeGUI, CrudPanel, UIUtil, Refreshable
+│           QuanLyNhanVienGUI, ThongKeGUI, CrudPanel, UIUtil, Refreshable
 └── util/   AppException, CsvUtil, PasswordUtil, Validate
 database/bookstore.sql
 ```

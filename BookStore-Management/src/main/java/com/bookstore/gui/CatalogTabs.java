@@ -14,7 +14,6 @@ public class CatalogTabs extends JTabbedPane implements Refreshable {
         addTab("Nhà xuất bản", new QuanLyNhaXuatBanGUI());
         if (user.isAdmin()) {
             addTab("Chức vụ", new QuanLyChucVuGUI());
-            addTab("Phòng ban", new QuanLyPhongBanGUI());
         }
         addChangeListener(e -> reload());
     }
